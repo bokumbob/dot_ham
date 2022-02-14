@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import Header from './component/Header';
 import Main from './pages/home/Main';
+import Timer from "./component/main/Timer.js"
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Header />
     <Main />
+    <Timer />
     {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')
