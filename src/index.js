@@ -11,7 +11,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Header />
     <Main />
-    <Timer />
     {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')

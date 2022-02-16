@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "mini-css-extract-plugin": "^2.5.3",
     "sass": "^1.49.7",
     "sass-loader": "^12.4.0"
