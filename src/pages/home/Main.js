@@ -18,7 +18,7 @@ export default function Main() {
             // const seeds = document.querySelector(".seeds");
             // seeds.classList.add("active")
             // console.log("hamactive")
-            setHamsterActiveS(!hamsterActiveS)
+            setHamsterActiveS(true)
             stateAssign({activeStatus : hamsterActiveS})
         }
     }
@@ -33,12 +33,17 @@ export default function Main() {
 
     const catchHamster = () => {
         if(activeTime<0){
-            setHamsterShow(!hamsterShow)
+            setHamsterShow(true)
             stateAssign({show : hamsterShow})
-        } else {
-            setHamsterShow(hamsterShow)
-            setActiveTime(900)
+            setHamsterActiveS(false)
+            stateAssign({activeStatus : hamsterActiveS})
+            localStorage.setItem("hamster", "hamham")
+            // console.log(hamsterActiveS)
         }
+        //  else if(hamsterActiveS === false){
+        //     setHamsterShow(false)
+        //     stateAssign({show : hamsterShow})
+        // }
     }
 
     // const timeReset = (resetTime)=>{
@@ -50,6 +55,11 @@ export default function Main() {
         Object.assign( hamsterState, newState)
     }
 
+    const popClose = () => {
+        setHamsterShow(false)
+        stateAssign({show : hamsterShow})
+    }
+
     const ShowHamster = () => {
         return (
             <div className='background'>
@@ -57,7 +67,7 @@ export default function Main() {
                     {/* <h2>hiddenTitle</h2> */}
                 </article>
                 <p>앗, 야생의 햄스터가 나타났다!</p>
-                <div className="pop-x"><p>x</p></div>
+                <div className="pop-x" onClick={popClose}><p>x</p></div>
                 {/* onClick={timeReset} */}
             </div>
         )
@@ -66,7 +76,7 @@ export default function Main() {
     const HideHamster = () => {
         return (
             <>
-                <article className={hamsterActiveS ? 'seeds active' : 'seeds'} onClick={catchHamster}></article>
+                <article className={hamsterActiveS ? 'seeds active' : 'seeds'} onClick={hamsterActiveS ? catchHamster : item => item}></article>
                 {/* {classNames('seeds', {active : activeTime < 0})} */}
                 {/* <article className='hamster'></article> */}
             </>
