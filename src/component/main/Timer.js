@@ -12,18 +12,18 @@ const Timer = ({active, activeStatus}) => {
     useEffect(()=>{
         if(!activeStatus){
             if(time.current<=0){
-                time.current = 900;
+                time.current = 5;
             }
             if(localStorage.getItem("hamster")){
                 timerId.current = setInterval(()=>{
                     setMin(parseInt(time.current / 60))
                     setSec(time.current % 60)
                     time.current -= 1;
-                    localStorage.setItem("time", time.current)
+                    // localStorage.setItem("time", time.current)
                 }, 1000);
             }
         }
-        console.log("나도실해오딤")
+        // console.log("나도실해오딤")
         return ()=> clearInterval(timerId)
     }, [activeStatus])
 
@@ -43,7 +43,7 @@ const Timer = ({active, activeStatus}) => {
   
     const ahamActive = () => {
         active(time.current)
-        console.log("aa")
+        // console.log("aa")
     }
 
     useEffect(()=>{
