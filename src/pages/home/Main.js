@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react'
+// import React, { useEffect } from 'react'
 import './main.scss'
 import { useState } from 'react'
 import Timer from 'component/main/Timer'
-import classNames from 'classnames'
+// import classNames from 'classnames'
 import hamsterList from 'model/hamsterList'
+import collectedHamsterList from 'model/hamsterCollection'
 
 
 export default function Main() {
-    const hamster = document.querySelector(".hamster")
+    // console.log(collectedHamsterList)
+    
+    // const hamster = document.querySelector(".hamster")
     const hamsterState = { show: false, name: "", id: "", activeStatus: false }
     const [hamsterShow, setHamsterShow] = useState(false);
     const [hamsterActiveS, setHamsterActiveS] = useState(false);
     const [activeTime, setActiveTime] = useState("");
     const [hamsterId, setHamsterId] = useState("");
+    
+    const hamsterIdMaker = hamsterList.allHamsterLists.filter(item => item.id === hamsterId)
 
     const hamActive = (time)=>{
         setActiveTime(time)
@@ -39,7 +44,9 @@ export default function Main() {
             stateAssign({show : hamsterShow})
             setHamsterActiveS(false)
             stateAssign({activeStatus : hamsterActiveS})
-            localStorage.setItem("hamsterId", Math.floor(Math.random()*5))
+
+            // collectedHamsterList
+            localStorage.setItem("hamsterId", Math.floor(Math.random()*hamsterList.allHamsterLists.length))
             setHamsterId(localStorage.getItem("hamsterId"))
             // console.log(hamsterId)
             localStorage.setItem("hamster", "hamham")
@@ -65,17 +72,20 @@ export default function Main() {
         stateAssign({show : hamsterShow})
     }
 
-    const hamsterIdSetting = () => {
-        const hamsterIdMaker = hamsterList.allHamsterLists.filter(item => item.id == hamsterId)
-        setHamsterId(hamsterIdMaker[0].id)
-    }
-
     const ShowHamster = () => {
         return (
             <div className='background'>
                 <article className='pop' onClick={catchHamster}>
                     {/* <h2>hiddenTitle</h2> */}
-                    <div className='your-hamster'></div>
+                        {hamsterIdMaker.map((item, index) => {
+                            return (
+                                <div className='your-hamster' key={index}>
+                                    <p>{item.name}</p>
+                                    <p>{item.description}</p>
+                                    <img src = {item.imgUrl} alt={item.name} />
+                                </div>
+                            )
+                        })}
                 </article>
                 <p>앗, 야생의 햄스터가 나타났다!</p>
                 <div className="pop-x" onClick={popClose}><p>x</p></div>
@@ -87,7 +97,7 @@ export default function Main() {
     const HideHamster = () => {
         return (
             <>
-                <article className={hamsterActiveS ? 'seeds active' : 'seeds'} onClick={hamsterActiveS ? catchHamster : undefined}></article>
+                <article className={hamsterActiveS ? 'seeds active' : 'seeds'} onClick={hamsterActiveS ? catchHamster : null}></article>
                 {/* {classNames('seeds', {active : activeTime < 0})} */}
                 {/* <article className='hamster'></article> */}
             </>

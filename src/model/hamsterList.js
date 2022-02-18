@@ -3,33 +3,33 @@
 const hamsterList = {
     allHamsterLists:[
         {
-        id:1,
+        id:'0',
         name:"Djungarian",
-        imgUrl:"",
+        imgUrl:"http://placehold.it/50x50",
         description:""
     },
         {
-        id:2,
+        id:'1',
         name:"aaaa",
-        imgUrl:"",
+        imgUrl:"http://placehold.it/50x50",
         description:""
     },
         {
-        id:3,
+        id:'2',
         name:"bbbb",
-        imgUrl:"",
+        imgUrl:"http://placehold.it/50x50",
         description:""
     },
         {
-        id:4,
+        id:'3',
         name:"cccc",
-        imgUrl:"",
+        imgUrl:"http://placehold.it/50x50",
         description:""
     },
         {
-        id:5,
+        id:'4',
         name:"eeee",
-        imgUrl:"",
+        imgUrl:"http://placehold.it/50x50",
         description:""
     },
 ],
