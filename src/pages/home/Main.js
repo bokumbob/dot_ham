@@ -16,8 +16,11 @@ export default function Main() {
     const [hamsterActiveS, setHamsterActiveS] = useState(false);
     const [activeTime, setActiveTime] = useState("");
     const [hamsterId, setHamsterId] = useState("");
+    const [unidentifiedList, setUnidentifiedList] = useState(hamsterList.allHamsterLists)
+    // console.log(hamsterList.allHamsterLists)
+    // console.log(unidentifiedList.filter(item => item.id === hamsterId))
     
-    const hamsterIdMaker = hamsterList.allHamsterLists.filter(item => item.id === hamsterId)
+    let hamsterIdMaker;
 
     const hamActive = (time)=>{
         setActiveTime(time)
@@ -46,10 +49,16 @@ export default function Main() {
             stateAssign({activeStatus : hamsterActiveS})
 
             // collectedHamsterList
-            localStorage.setItem("hamsterId", Math.floor(Math.random()*hamsterList.allHamsterLists.length))
-            setHamsterId(localStorage.getItem("hamsterId"))
-            // console.log(hamsterId)
             localStorage.setItem("hamster", "hamham")
+            hamsterIdMaker = unidentifiedList.filter(item => item.id === localStorage.getItem("hamsterId"))
+            if(!localStorage.getItem("hamsterId")){
+                localStorage.setItem("hamsterId", 0)
+                setUnidentifiedList(unidentifiedList.filter(item => item.id !== localStorage.getItem("hamsterId")))
+            }
+            // localStorage.setItem("hamsterId", unidentifiedList[Math.floor(Math.random() * unidentifiedList.length)].id)
+            // setHamsterId(localStorage.getItem("hamsterId"))
+            // console.log(unidentifiedList)
+            // console.log(hamsterId)
             // console.log(hamsterActiveS)
         }
         //  else if(hamsterActiveS === false){
@@ -75,7 +84,7 @@ export default function Main() {
     const ShowHamster = () => {
         return (
             <div className='background'>
-                <article className='pop' onClick={catchHamster}>
+                <article className='pop'>
                     {/* <h2>hiddenTitle</h2> */}
                         {hamsterIdMaker.map((item, index) => {
                             return (
