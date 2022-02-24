@@ -1,6 +1,7 @@
 import {useState} from "react";
 import Header from "./component/Header.js"
 import DefaultMain from "./page/DefaultMain.js"
+import HamsterCollectionList from "./page/HamsterCollectionPage"
 import './css/index.css'
 // import ShowHamster from "./component/ShowHamster.js"
 // import Timer from "./component/Timer.js"
@@ -15,7 +16,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <DefaultMain active={setHamsterActiveS} activeStatus={hamsterActiveS} hamsterSetShow={setHamsterShow} hamsterShow={hamsterShow} allClear={allClear} setAllClear={setAllClear}/>
+      {/* <DefaultMain active={setHamsterActiveS} activeStatus={hamsterActiveS} hamsterSetShow={setHamsterShow} hamsterShow={hamsterShow} allClear={allClear} setAllClear={setAllClear}/> */}
+      <HamsterCollectionList />
     </div>
   );
 }
