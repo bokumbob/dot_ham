@@ -1,0 +1,35 @@
+.center{
+    width: 1000px;
+    height: 1000px;
+    background-color: burlywood;
+}
+
+.seeds{
+    width: 500px;
+    height: 500px;
+    background-color: aquamarine;
+}
+
+.seeds.active{
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.background{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.pop-x{
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+}
+
+button:disabled{
+    opacity: 0.5;
+}
