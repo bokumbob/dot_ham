@@ -1,6 +1,6 @@
 import {useState} from "react";
 import Header from "./component/Header.js"
-import DefaultMain from "./component/DefaultMain.js"
+import DefaultMain from "./page/DefaultMain.js"
 import './css/index.css'
 // import ShowHamster from "./component/ShowHamster.js"
 // import Timer from "./component/Timer.js"

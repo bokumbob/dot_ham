@@ -1,5 +1,5 @@
-import Timer from './Timer'
-import ShowHamster from './ShowHamster'
+import Timer from '../component/Timer'
+import ShowHamster from '../component/ShowHamster'
 import hamsterList from '../model/hamsterList'
 import {defaultHamster, catchHamster} from '../model/hamsterListHelper'
 import {getLocal, JsonPar} from '../helpers'
