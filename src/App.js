@@ -3,7 +3,7 @@ import Header from "./component/Header.js"
 import DefaultMain from "./page/DefaultMain.js"
 import HamsterCollectionList from "./page/HamsterCollectionPage"
 import './css/index.css'
-import { JsonPar, JsonStr, setLocal, useLocalStorage } from "./helpers.js";
+import { getLocal, JsonPar, JsonStr, setLocal, useLocalStorage } from "./helpers.js";
 import hamsterList from "./model/hamsterList";
 // import ShowHamster from "./component/ShowHamster.js"
 // import Timer from "./component/Timer.js"
@@ -36,37 +36,26 @@ function App() {
     setLocal("getHamsterAllList", JsonStr(getHamsterAllList))
   }, [getHamsterAllList])
 
-      // return new Promise((resolve, reject) => {
-    //   setHamsterAllList(hamsterAllList.filter(item => item.id !== '0'))
-    //   resolve()
-    //   // resolve(setLocal("hamsterAllList", JsonStr(hamsterAllList)))
-    // }).then(
-    //   setLocal("hamsterAllList", JsonStr(hamsterAllList))
-    // ).then(
-    //   setGetHamsterAllList(
-    //     () => {
-    //       const zeroHam = hamsterList.filter(item => item.id === "0")
-    //       zeroHam[0].status = true;
-    //       setLocal("getHamsterList", JsonStr(zeroHam))
-    //       return zeroHam
-    //     }
-    //   ))
-
-  const hamham = () => {
-    const b = Math.floor(Math.random() * hamsterAllList.length - 1)
-    // const b = hamsterAllList[Math.floor(Math.random() * hamsterAllList.length-1)].id
-    setHamsterAllList(hamsterAllList.filter(item => item.id !== hamsterAllList[b].id))
-    // console.log(hamsterAllList[Math.floor(Math.random() * hamsterAllList.length-1)])
-    setGetHamsterAllList((prev) => {
-      const c = hamsterAllList.filter(item => item.id === hamsterAllList[b].id)
-      c.map(item => item.status = true)
-      const a = [...prev, c[0]]
-      // console.log(c[0])
-      return a
-    })
-    // console.log(getHamsterAllList)
+    const hamham = () => {
+      const newAllList = JsonPar(getLocal("hamsterAllList"))
+      if(hamsterAllList.length <= 0){
+        return alert("clear!")
+        
+      } else if(hamsterAllList.length > 0){
+        const currentId = newAllList[Math.floor(Math.random() * newAllList.length)].id
+        setHamsterAllList(
+          ()=>{
+            const filterList = newAllList.filter(item => item.id !== currentId)
+            return filterList
+          }
+        )
+        setGetHamsterAllList(()=>{
+          const GetAll = JsonPar(getLocal("getHamsterAllList"))
+          const newGetAll = hamsterList.filter(item => item.id === currentId)
+          return [...GetAll, newGetAll]
+        })
+      }
   }
-  // console.log(getHamsterAllList)
 
   return (
     <div className="App">
