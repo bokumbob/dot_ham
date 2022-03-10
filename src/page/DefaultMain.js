@@ -1,12 +1,11 @@
 import Timer from '../component/Timer'
 import ShowHamster from '../component/ShowHamster'
-import hamsterList from '../model/hamsterList'
 import {defaultHamster, catchHamster} from '../model/hamsterListHelper'
 import {getLocal, JsonPar} from '../helpers'
 // import {stateAssign} from '../helpers'
 
-const DefaultMain = ({active, activeStatus, hamsterShow, hamsterSetShow, allClear, setAllClear}) => {
-    const {allHamsterLists, getHamsterList} = hamsterList;
+const DefaultMain = ({active, activeStatus, hamsterShow, hamsterSetShow, allClear, setAllClear, hamsterList, setHamsterList}) => {
+    // const {allHamsterLists, getHamsterList} = hamsterList;
     const clickSeeds = () => {
         hamsterSetShow(true)
         active(false)

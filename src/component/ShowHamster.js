@@ -1,5 +1,5 @@
-import { getLocal } from "helpers"
-import hamsterList from "model/hamsterList"
+import { getLocal } from "../helpers"
+import hamsterList from "../model/hamsterList"
 
 const ShowHamster = ({popClose}) => {
 

@@ -1,14 +1,13 @@
 import {getLocal} from '../helpers'
 
-const hamsterList = {
-    allHamsterLists:[
+const hamsterList = [
         {
         id:'0',
         name:"Djungarian",
         imgUrl:"http://placehold.it/80x80",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'1',
@@ -16,7 +15,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/50x50",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'2',
@@ -24,7 +23,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/150x150",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'3',
@@ -32,7 +31,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/100x100",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'4',
@@ -40,7 +39,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'5',
@@ -48,7 +47,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'6',
@@ -56,7 +55,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/30x30",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'7',
@@ -64,7 +63,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'8',
@@ -72,7 +71,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'9',
@@ -80,7 +79,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'10',
@@ -88,7 +87,7 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
         {
         id:'11',
@@ -96,10 +95,9 @@ const hamsterList = {
         imgUrl:"http://placehold.it/10x10",
         hideimgUrl:"http://placehold.it/150x80",
         description:"",
-        status: ""
+        status: false
     },
-], getHamsterList: [],
     // currentId:''
-}
+]
 
 export default hamsterList
