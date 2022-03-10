@@ -11,57 +11,83 @@ import hamsterList from "./model/hamsterList";
 
 function App() {
   // const hamsterState = { show: false, name: "", id: "", activeStatus: false }
-  const [hamsterAllList, setHamsterAllList] = useState(hamsterList)
-  const [getHamsterAllList, setGetHamsterAllList] = useState()
+  const [hamsterAllList, setHamsterAllList] = useState(JsonPar(getLocal("hamsterAllList")))
+  const [getHamsterAllList, setGetHamsterAllList] = useState(JsonPar(getLocal("getHamsterAllList")))
+  const [currentHamster, setCurrentHamster] = useState(JsonPar(getLocal("currentHamsterAllList")))
   const [hamsterShow, setHamsterShow] = useState(false);
   const [hamsterActiveS, setHamsterActiveS] = useState(false);
   const [allClear, setAllClear] = useState(false)
 
   const firstHamster = () => {
-    setHamsterAllList(hamsterAllList.filter(item => item.id !== '0'))
+    setHamsterAllList(hamsterList.filter(item => item.id !== '0'))
 
     setGetHamsterAllList(
       () => {
         const zeroHam = hamsterList.filter(item => item.id === "0")
         zeroHam[0].status = true;
         return zeroHam
-    }
+      }
     )
+    setCurrentHamster(hamsterList.filter(item => item.id === "0"))
   }
-  useEffect(()=>{
+
+  const catchHamster = () => {
+    // const newAllList = JsonPar(getLocal("hamsterAllList"))
+    if (hamsterAllList.length <= 0) {
+    } else if (hamsterAllList.length > 0) {
+      const currentId = hamsterAllList[Math.floor(Math.random() * hamsterAllList.length)].id
+      setHamsterAllList(
+        () => {
+          const filterList = hamsterAllList.filter(item => item.id !== currentId)
+          return filterList
+        }
+      )
+      setGetHamsterAllList(() => {
+        // const GetAll = JsonPar(getLocal("getHamsterAllList"))
+        const newGetAll = hamsterList.filter(item => item.id === currentId)
+        newGetAll[0].status = true;
+        return [...getHamsterAllList, newGetAll]
+      })
+      setCurrentHamster(hamsterList.filter(item => item.id === currentId))
+    }
+  }
+
+  const clickSeeds = () => {
+    if(hamsterAllList){
+      if (hamsterAllList.length <= 0) {
+        return alert("clear")
+      }
+    }
+    setHamsterShow(true)
+    setHamsterActiveS(false)
+    if (!getHamsterAllList) {
+      firstHamster()
+    } else if (getHamsterAllList) {
+      catchHamster()
+    }
+  }
+
+  const popClose = () => {
+    setHamsterShow(false)
+  }
+
+  useEffect(() => {
     setLocal("hamsterAllList", JsonStr(hamsterAllList))
   }, [hamsterAllList])
 
-  useEffect(()=>{
+  useEffect(() => {
     setLocal("getHamsterAllList", JsonStr(getHamsterAllList))
   }, [getHamsterAllList])
 
-    const hamham = () => {
-      const newAllList = JsonPar(getLocal("hamsterAllList"))
-      if(hamsterAllList.length <= 0){
-        return alert("clear!")
-        
-      } else if(hamsterAllList.length > 0){
-        const currentId = newAllList[Math.floor(Math.random() * newAllList.length)].id
-        setHamsterAllList(
-          ()=>{
-            const filterList = newAllList.filter(item => item.id !== currentId)
-            return filterList
-          }
-        )
-        setGetHamsterAllList(()=>{
-          const GetAll = JsonPar(getLocal("getHamsterAllList"))
-          const newGetAll = hamsterList.filter(item => item.id === currentId)
-          return [...GetAll, newGetAll]
-        })
-      }
-  }
+  useEffect(() => {
+    setLocal("currentHamsterAllList", JsonStr(currentHamster))
+  }, [currentHamster])
 
   return (
     <div className="App">
-      <Header firstHamster={firstHamster} hamham={hamham} />
-      {/* <DefaultMain active={setHamsterActiveS} activeStatus={hamsterActiveS} hamsterSetShow={setHamsterShow} hamsterShow={hamsterShow} allClear={allClear} setAllClear={setAllClear}/> */}
-      {/* <HamsterCollectionList /> */}
+      {/* <Header /> */}
+      <DefaultMain clickSeeds={clickSeeds} popClose={popClose} hamsterActiveS={hamsterActiveS} setHamsterActiveS={setHamsterActiveS} allClear={allClear} hamsterShow={hamsterShow} currentHamster={currentHamster}/>
+      {/* <HamsterCollectionList getHamsterAllList={getHamsterAllList}/> */}
     </div>
   );
 }

@@ -30,7 +30,7 @@ const hamsterList = [
         name:"cccc",
         imgUrl:"http://placehold.it/100x100",
         hideimgUrl:"http://placehold.it/150x80",
-        description:"",
+        description:"ss",
         status: false
     },
         {
