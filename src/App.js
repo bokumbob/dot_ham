@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "./component/Header.js"
 import DefaultMain from "./page/DefaultMain.js"
 import HamsterCollectionList from "./page/HamsterCollectionPage"
@@ -17,6 +17,31 @@ function App() {
   const [hamsterShow, setHamsterShow] = useState(false);
   const [hamsterActiveS, setHamsterActiveS] = useState(false);
   const [allClear, setAllClear] = useState(false)
+
+  const [min, setMin] = useState(getLocal("min"));
+  const [sec, setSec] = useState(getLocal("sec"));
+  const time = useRef('');
+  const timerId = useRef(null);
+
+  setLocal("min", min)
+  setLocal("sec", sec)
+
+
+  useEffect(()=>{
+    if(!getLocal("currentTime")){
+      timer(5)
+    } else {
+      timer(getLocal("currentTime"))
+    }
+  }, [])
+
+  useEffect(()=>{
+      if(time.current<0){
+          clearInterval(timerId.current)
+          setHamsterActiveS(true)
+      }
+      setLocal("currentTime", time.current)
+  }, [sec])
 
   const firstHamster = () => {
     setHamsterAllList(hamsterList.filter(item => item.id !== '0'))
@@ -53,6 +78,15 @@ function App() {
     }
   }
 
+  function timer(timeCount){
+    time.current = timeCount
+    timerId.current = setInterval(()=>{
+        setMin(parseInt(time.current / 60))
+        setSec(time.current % 60)
+        time.current -= 1;      
+    }, 1000);
+}
+
   const clickSeeds = () => {
     if(hamsterAllList){
       if (hamsterAllList.length <= 0) {
@@ -63,8 +97,10 @@ function App() {
     setHamsterActiveS(false)
     if (!getHamsterAllList) {
       firstHamster()
+      timer(5)
     } else if (getHamsterAllList) {
       catchHamster()
+      timer(900)
     }
   }
 
@@ -87,7 +123,7 @@ function App() {
   return (
     <div className="App">
       {/* <Header /> */}
-      <DefaultMain clickSeeds={clickSeeds} popClose={popClose} hamsterActiveS={hamsterActiveS} setHamsterActiveS={setHamsterActiveS} allClear={allClear} hamsterShow={hamsterShow} currentHamster={currentHamster}/>
+      <DefaultMain clickSeeds={clickSeeds} popClose={popClose} hamsterActiveS={hamsterActiveS} setHamsterActiveS={setHamsterActiveS} allClear={allClear} hamsterShow={hamsterShow} currentHamster={currentHamster} min={min} sec={sec}/>
       {/* <HamsterCollectionList getHamsterAllList={getHamsterAllList}/> */}
     </div>
   );

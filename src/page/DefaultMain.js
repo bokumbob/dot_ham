@@ -4,7 +4,7 @@ import {defaultHamster, catchHamster} from '../model/hamsterListHelper'
 import {getLocal, JsonPar} from '../helpers'
 // import {stateAssign} from '../helpers'
 
-const DefaultMain = ({clickSeeds, popClose, hamsterActiveS, setHamsterActiveS, allClear,hamsterShow, currentHamster}) => {
+const DefaultMain = ({clickSeeds, popClose, hamsterActiveS, setHamsterActiveS, allClear,hamsterShow, currentHamster, min, sec}) => {
     // const {allHamsterLists, getHamsterList} = hamsterList;
 
     return (
@@ -12,7 +12,7 @@ const DefaultMain = ({clickSeeds, popClose, hamsterActiveS, setHamsterActiveS, a
             <section className="hamster-catch">
                 <h2 className="hidden">hiddenTitle</h2>
                 <div className="center">
-                <Timer active={setHamsterActiveS} activeStatus={hamsterActiveS} />
+                <Timer min={min} sec={sec} />
                 <button disabled={allClear ? true : false} className={hamsterActiveS ? 'seeds active' : 'seeds'} onClick={hamsterActiveS ? clickSeeds : null}></button>
                 {hamsterShow && <ShowHamster popClose={popClose} currentHamster={currentHamster} />}
                 </div>
