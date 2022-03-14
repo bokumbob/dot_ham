@@ -25,6 +25,7 @@ function App() {
       () => {
         const zeroHam = hamsterList.filter(item => item.id === "0")
         zeroHam[0].status = true;
+        console.log(zeroHam)
         return zeroHam
       }
     )
@@ -46,7 +47,7 @@ function App() {
         // const GetAll = JsonPar(getLocal("getHamsterAllList"))
         const newGetAll = hamsterList.filter(item => item.id === currentId)
         newGetAll[0].status = true;
-        return [...getHamsterAllList, newGetAll]
+        return [...getHamsterAllList, ...newGetAll]
       })
       setCurrentHamster(hamsterList.filter(item => item.id === currentId))
     }

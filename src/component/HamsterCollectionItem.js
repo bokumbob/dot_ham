@@ -4,14 +4,15 @@ const HamsterCollectionItem = ({item,getHamsterAllList}) => {
     // const obj = currentHamster[0]
     //  const {imgUr, status} = obj
     //  console.log(obj)
-     const {name,imgUrl,hideimgUrl,description} = item
-    //  const {status} = getHamsterAllList
-    console.log(getHamsterAllList)
+     const {name,imgUrl,hideimgUrl,description,id} = item
+     const current = getHamsterAllList.filter(item => item.id === id)
+     const currentStatus = current.map(item => item.status)
+    //  console.log(currentStatus)
     return (
         <div>
             <h3>{name}</h3>
             <p>{description}</p>
-            {/* <p>{status ? `imgUrl`:`hideimgUrl`} </p> */}
+            <img src={currentStatus[0] ? imgUrl : hideimgUrl} />
         </div>
     );
 };

@@ -21,10 +21,10 @@ const Timer = ({active, activeStatus}) => {
 
     useEffect(()=>{
         if(!activeStatus){
-        if(!getLocal("getHamsterList")){
+        if(!getLocal("getHamsterAllList")){
             timer(5)
-        } else if(getLocal("getHamsterList")){
-                timer(3)
+        } else if(getLocal("getHamsterAllList")){
+                timer(900)
             }
         }
         return ()=> clearInterval(timerId)

@@ -4,8 +4,8 @@ const hamsterList = [
         {
         id:'0',
         name:"Djungarian",
-        imgUrl:"http://placehold.it/80x80",
-        hideimgUrl:"http://placehold.it/150x80",
+        imgUrl:"../../public/img/test.png",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -13,7 +13,7 @@ const hamsterList = [
         id:'1',
         name:"aaaa",
         imgUrl:"http://placehold.it/50x50",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -21,7 +21,7 @@ const hamsterList = [
         id:'2',
         name:"bbbb",
         imgUrl:"http://placehold.it/150x150",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -29,7 +29,7 @@ const hamsterList = [
         id:'3',
         name:"cccc",
         imgUrl:"http://placehold.it/100x100",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"ss",
         status: false
     },
@@ -37,7 +37,7 @@ const hamsterList = [
         id:'4',
         name:"eeee",
         imgUrl:"http://placehold.it/10x10",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -45,7 +45,7 @@ const hamsterList = [
         id:'5',
         name:"mmmmm",
         imgUrl:"http://placehold.it/10x10",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -53,7 +53,7 @@ const hamsterList = [
         id:'6',
         name:"qqqqqqqqqqqqqqqqq",
         imgUrl:"http://placehold.it/30x30",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -61,7 +61,7 @@ const hamsterList = [
         id:'7',
         name:"rrrrrrrrrrrrrrrrr",
         imgUrl:"http://placehold.it/10x10",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -69,7 +69,7 @@ const hamsterList = [
         id:'8',
         name:"yyyyyyyyyyy",
         imgUrl:"http://placehold.it/10x10",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
@@ -77,7 +77,7 @@ const hamsterList = [
         id:'9',
         name:"jjjjjjjjjj",
         imgUrl:"http://placehold.it/10x10",
-        hideimgUrl:"http://placehold.it/150x80",
+        hideimgUrl:'./img/test.png',
         description:"",
         status: false
     },
