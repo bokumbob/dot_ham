@@ -12,7 +12,9 @@ const DefaultMain = ({clickSeeds, popClose, hamsterActiveS, setHamsterActiveS, a
             <section className="hamster-catch">
                 <h2 className="hidden">hiddenTitle</h2>
                 <div className="center">
-                <Timer min={min} sec={sec} />
+                <Timer 
+                // min={min} sec={sec}
+                 />
                 <button disabled={allClear ? true : false} className={hamsterActiveS ? 'seeds active' : 'seeds'} onClick={hamsterActiveS ? clickSeeds : null}></button>
                 {hamsterShow && <ShowHamster popClose={popClose} currentHamster={currentHamster} />}
                 </div>
