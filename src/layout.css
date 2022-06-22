@@ -25,6 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+    font-family: 'neodgm_pro';
 }
 ol, ul {
 	list-style: none;
@@ -43,3 +44,19 @@ table {
 }
 
 a{text-decoration: none;color: #000;}
+
+@font-face {
+    font-family: "neodgm_pro";
+    src: url(../public/font/neodgm_pro.woff) format("woff");
+}
+
+
+.App{
+    width: 390px;
+    margin: 0 auto;
+	background-color: #fef1de;
+}
+
+.hidden{
+    display: none;
+}

@@ -1,7 +1,6 @@
 // import { getLocal, JsonPar, JsonStr, setLocal } from "../helpers"
 // import hamsterList from "./hamsterList"
 
-
 // const {allHamsterLists} = hamsterList
 // let {getHamsterList} = hamsterList
 // // let {currentId} = hamsterList
