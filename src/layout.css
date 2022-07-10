@@ -55,6 +55,9 @@ a{text-decoration: none;color: #000;}
     width: 390px;
     margin: 0 auto;
 	background-color: #fef1de;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .hidden{

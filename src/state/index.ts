@@ -1,3 +1,4 @@
+import { seedGameReducer } from './seedGameAction';
 import { timerReducer } from './timer';
 import { userReducer } from './userAction';
 import { loginReducer } from './loginAction';
@@ -8,6 +9,7 @@ const rootRducer = combineReducers({
   loginReducer,
   userReducer,
   timerReducer,
+  seedGameReducer,
 });
 
 export default rootRducer;

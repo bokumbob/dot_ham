@@ -7,12 +7,9 @@ import { RootState } from 'state';
 import { useSelector } from 'react-redux';
 
 const App = () => {
-  const userState = useSelector((state: RootState) => state.userReducer.user);
   return (
     <div className="App">
-      <Header />
       <RouterComponent />
-      {Object.keys(userState).length !== 0 && <Footer />}
     </div>
   );
 };

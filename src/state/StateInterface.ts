@@ -10,6 +10,7 @@ export interface LoginState {
 export interface User {
   user: object;
   hamsterList: object;
+  start: number;
 }
 
 export interface TimerState {
@@ -21,7 +22,7 @@ export interface TimerReducerState extends TimerState {
   type: string;
 }
 
-interface Hamster {
+export interface Hamster {
   name: string;
   description: string;
   catch: boolean;
@@ -36,4 +37,9 @@ export interface HamsterListState extends Array<Hamster> {
   king: Hamster;
   muscle: Hamster;
   pudding: Hamster;
+}
+
+export interface seedGameInit {
+  start: boolean;
+  seeds: number;
 }

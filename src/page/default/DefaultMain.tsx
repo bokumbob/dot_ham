@@ -1,26 +1,31 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './default.css';
-import DefaultCanvas from './DefaultCanvas';
+import Canvas from '../../component/canvas/Canvas';
 import { authService, dbService } from 'etc/fbase';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from 'state';
 import { catchHamster } from './defaultFunction';
 import { currentTime, time } from 'state/timer';
-// import Timer from 'component/Timer';
+import { hamsterList, start } from 'state/userAction';
+import CatchModal from 'component/catchModal/CatchModal';
+import { imgLink } from 'etc/imgLink';
+import TitleHeader from 'component/title-header/TitleHeader';
+
 const DefaultMain = () => {
   const auth = authService.currentUser;
   const timeState = useSelector((state: RootState) => state.timerReducer.time);
+  const startTimeState = useSelector(
+    (state: RootState) => state.userReducer.start
+  );
   const currentTimeState = useSelector(
     (state: RootState) => state.timerReducer.currentTime
   );
-  const hamsterList = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
-  // const [currentTime, setCurrentTime] = useState<number>(0);
-  const [catchTime, setCatchTime] = useState<number>(0);
-  // const [a, setA] = useState<number>();
+  const [catchTime, setCatchTime] = useState<number>(900);
   const [first, setFirst] = useState<boolean>(true);
   const [active, setActive] = useState<boolean>(false);
+  const [catchHam, setCatchHam] = useState<any>();
   const timer = useRef<any>();
 
   useEffect(() => {
@@ -28,75 +33,78 @@ const DefaultMain = () => {
       const userData = dbService.collection('userList');
       (await userData.get()).docs.forEach(doc => {
         if (doc.id === auth?.displayName) {
+          dispatch(hamsterList(doc.data().hamsterList));
+          dispatch(start(doc.data().start));
+          dispatch(time(doc.data().time));
           setFirst(false);
-          dispatch(time(doc.data().start));
         }
       });
     };
     firstHamster();
-    const w = () =>
-      setInterval(() => {
-        dispatch(currentTime(Date.now()));
-      }, 1000);
-    w();
-    return () => clearInterval(w());
+    dispatch(currentTime(Date.now()));
+    timer.current = setInterval(() => {
+      dispatch(currentTime(Date.now()));
+    }, 1000);
+    return () => clearInterval(timer.current);
   }, []);
 
-  // useEffect(() => {
-  //   if (first) {
-  //     setCatchTime(5);
-  //     timer.current = setInterval(() => setCatchTime(t => t - 1), 1000);
-  //   } else {
-  //     const e = currentTimeState - timeState;
-  //     if (currentTimeState) {
-  //       console.log(e);
-  //       const w = Math.floor(e / 1000);
-  //       timer.current = setInterval(() => {
-  //         setCatchTime(Math.floor((900 - w) / 60));
-  //       }, 1000);
-  //     }
-  //   }
-  //   return () => clearInterval(timer.current);
-  // }, [active]);
+  useEffect(() => {
+    // timeState 0이었다가 바뀜 그래서 지금 에러 나는 듯
+    if (startTimeState > 1 && timeState > 1) {
+      const timeFix =
+        timeState - Math.floor((currentTimeState - startTimeState) / 1000);
+      setCatchTime(timeFix);
+    } else {
+      console.log(55);
+      setCatchTime(5);
+    }
+  }, [startTimeState, timeState]);
 
   useEffect(() => {
     if (catchTime < 1) {
       clearInterval(timer.current);
       setActive(true);
-      // setCatchTime(0);
+      setCatchTime(0);
     }
   }, [catchTime]);
+
+  useEffect(() => {
+    if (!active) {
+      timer.current = setInterval(() => {
+        setCatchTime(prev => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer.current);
+  }, [active]);
 
   return (
     <>
       <div className="container">
         <section className="hamster-main">
-          <div className="title-name">
-            <div className="left"></div>
-            <h2>만남의 장소</h2>
-            <div className="right"></div>
-          </div>
+          <TitleHeader text={'만남의 장소'} />
           <div className="center">
             <article className="seed">
-              <h3>
-                햄스터를 만나기까지...{catchTime}
-                {/* <span style={{ color: 'red' }}>{currentTime}</span> */}
-              </h3>
-              <DefaultCanvas />
+              <h3>햄스터를 만나기까지...{catchTime}</h3>
+              <Canvas imgUrl="seed" />
             </article>
           </div>
           <div
             className={`catch ${active && 'active'}`}
             onClick={() => {
               if (active) {
-                catchHamster(first!);
-                setFirst(false);
+                catchHamster(first!).then(res => setCatchHam(res));
+                setActive(false);
+                setCatchTime(900);
               }
+              if (first) setFirst(false);
             }}
           >
-            <img src="./img/hamsterIcon.png" alt="햄스터 잡기 아이콘" />
+            <img src={`${imgLink}hamsterIcon.png`} alt="햄스터 잡기 아이콘" />
             <p>햄스터 잡기</p>
           </div>
+          {catchHam && (
+            <CatchModal hamster={catchHam} setCatchHam={setCatchHam} />
+          )}
         </section>
       </div>
     </>

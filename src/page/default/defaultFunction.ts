@@ -25,6 +25,7 @@ export const catchHamster = async (first: boolean) => {
   const userData = await dbService.collection('userList');
   await loadingHamsterList();
   const prevList = Object.values(hamsterList);
+
   const newHamsterList = Object.values(hamsterList).filter(
     ham => ham.catch === false
   );
@@ -46,13 +47,6 @@ export const catchHamster = async (first: boolean) => {
       hamsterList: prevList,
       start: Date.now(),
     });
+    return newHamsterList[randomNumber];
   }
 };
-
-// const arrayFix = (arr1: Array<object>, arr2: Array<object>) => {
-//   for (let i = 0; i < arr1.length; i++) {
-//     if (!arr2[i]) return arr1;
-//     arr1[i] = arr1[i] === arr2[i] ? arr1[i] : arr2[i];
-//   }
-//   return arr1;
-// };
