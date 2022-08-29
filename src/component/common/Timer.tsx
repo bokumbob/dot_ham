@@ -59,6 +59,7 @@ const Timer = ({ active, setActive }: Time) => {
   }, [catchTime]);
 
   // 액티브 바뀌면 새 시간 넣어주세요
+  // adas
 
   useEffect(() => {
     if (!active) {
