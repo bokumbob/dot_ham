@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import SeedGamePop from './SeedGamePop';
 
 const GameTimer = () => {
-  const [time, setTime] = useState<number>(2);
+  const [time, setTime] = useState<number>(60);
   const timer = useRef<NodeJS.Timer>();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const GameTimer = () => {
 
   return (
     <>
-      <p>{time}</p>
+      <p className="timer">{time}</p>
       {time < 1 && <SeedGamePop />}
     </>
   );

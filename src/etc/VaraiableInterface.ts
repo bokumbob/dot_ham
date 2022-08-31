@@ -1,4 +1,5 @@
 import { Hamster } from 'state/StateInterface';
+import { TouchBoxInter } from './ParamsInterface';
 
 export interface UserItem {
   hamsterList: Hamster[];
@@ -7,3 +8,5 @@ export interface UserItem {
   start: number;
   time: number;
 }
+
+export type TouchBoxStyled = Omit<TouchBoxInter, 'onClick'>;

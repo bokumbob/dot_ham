@@ -10,7 +10,7 @@ const NextBtn = ({ text, onClick, color }: NextBtnInt) => {
   );
 };
 
-const Button = styled.button`
+export const Button = styled.button`
   width: 113px;
   height: 50px;
   color: ${props => (props.color === '#fff' ? '#000' : '#fff')};

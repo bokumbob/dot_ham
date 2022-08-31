@@ -50,3 +50,9 @@ export interface RankingItem {
 export interface RankingChange {
   change: boolean;
 }
+
+export interface TouchBoxInter {
+  onClick: () => void;
+  top: string;
+  left: string;
+}
