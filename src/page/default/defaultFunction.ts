@@ -47,6 +47,8 @@ export const fitstCatchHam = async () => {
     time: 900,
     hamsterList,
     start: Date.now(),
+    seeds: 0,
+    nickname: authService.currentUser?.displayName,
   });
   return hamsterList.Djungarian;
 };

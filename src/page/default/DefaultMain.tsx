@@ -8,6 +8,7 @@ import { time } from 'state/timer';
 import { hamsterList, start } from 'state/userAction';
 import DefaultFirst from './DefaultFirst';
 import DefaultBox from './DefaultBox';
+import { UserItem } from 'etc/VaraiableInterface';
 
 const DefaultMain = () => {
   const firstState = useSelector((state: RootState) => state.userReducer.first);
@@ -15,7 +16,7 @@ const DefaultMain = () => {
   const dispatch = useDispatch();
 
   const hamsterData = async () => {
-    myData().then(res => {
+    myData().then((res: UserItem) => {
       if (res?.hamsterList) {
         dispatch(hamsterList(res.hamsterList));
         dispatch(start(res.start));

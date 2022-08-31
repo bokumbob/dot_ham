@@ -16,8 +16,8 @@ const SeedGameTouchBox = ({
   const [top, setTop] = useState<string>();
   const [left, setLeft] = useState<string>();
   const [touch, setTouch] = useState<number>(5);
-  const [time, setTime] = useState<number>(10);
-  const timer = useRef<NodeJS.Timer>();
+  // const [time, setTime] = useState<number>(10);
+  // const timer = useRef<NodeJS.Timer>();
 
   const random = () => {
     // 15 ~ 60
@@ -44,36 +44,38 @@ const SeedGameTouchBox = ({
     }
   }, [touch]);
 
-  useEffect(() => {
-    if (time < 1) {
-      clearInterval(timer.current);
-      // dispatch(start());
-    } else {
-      timer.current = setInterval(() => {
-        setTime(prev => prev - 1);
-      }, 1000);
-    }
-    return () => clearInterval(timer.current);
-  }, [time]);
+  // useEffect(() => {
+  //   if (time < 1) {
+  //     clearInterval(timer.current);
+  //     // dispatch(start());
+  //   } else {
+  //     timer.current = setInterval(() => {
+  //       setTime(prev => prev - 1);
+  //     }, 1000);
+  //   }
+  //   return () => clearInterval(timer.current);
+  // }, [time]);
 
   return (
     <>
-      {time}
+      {/* {time} */}
       <Touch
         onClick={() => {
-          time > 1 && count();
-          time > 1 && clickCount(touch);
+          count();
+          // time > 1 && count();
+          clickCount(touch);
+          // time > 1 && clickCount(touch);
         }}
         top={top + '%'}
         left={left + '%'}
       />
-      {time < 1 && (
+      {/* {time < 1 && (
         <SeedGamePop
           setTime={setTime}
           setTouch={setTouch}
           dispatch={dispatch}
         />
-      )}
+      )} */}
     </>
   );
 };

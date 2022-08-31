@@ -1,50 +1,60 @@
-import { myData } from 'etc/fbase';
-import { SeedGamePopInterface } from 'etc/ParamsInterface';
+import NextBtn from 'component/common/NextBtn';
+import { allData, myData } from 'etc/fbase';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from 'state';
-import { reset, seedNumberReset, start } from 'state/seedGameAction';
+import { seedNumberReset, seedsReset, start } from 'state/seedGameAction';
 import styled from 'styled-components';
+import GameRanking from './GameRanking';
 import { ranking } from './seedGameFunction';
 
-const SeedGamePop = ({ setTime, dispatch, setTouch }: SeedGamePopInterface) => {
+const SeedGamePop = () => {
   const seedsState = useSelector((state: RootState) =>
     Math.floor(state.seedGameReducer.seeds / 5)
   );
+  const dispatch = useDispatch();
   const [highSeed, sethighSeed] = useState<any>();
+  const [change, setChange] = useState<boolean>(false);
 
   useEffect(() => {
-    ranking(0).then(res => sethighSeed(res));
+    const compare = async () => {
+      await ranking(seedsState).then(res => sethighSeed(res));
+    };
+    compare();
   }, [seedsState]);
+
+  useEffect(() => {
+    if (change) setChange(false);
+  }, [change]);
 
   return (
     <PopDiv>
       <div>
         <p>타임오버!</p>
-        <p>내 기록은? {seedsState}개</p>
-        <p>최고 기록은 {highSeed}개</p>
+        <RecordText>
+          <p>최고 기록은 {highSeed}개</p>
+          <p>내 기록은? {seedsState}개</p>
+        </RecordText>
+        <GameRanking change={change} />
         <BtnDiv>
-          <button onClick={() => myData('seeds', highSeed)}>
-            기록 저장하기
-          </button>
-          <button
+          <NextBtn
+            text="최고 기록 저장하기"
             onClick={() => {
-              setTime(10);
-              dispatch(reset());
-              setTouch(5);
+              myData('seeds', highSeed);
+              setChange(true);
             }}
-          >
-            다시 하기
-          </button>
+          />
+          <NextBtn
+            text="닫기"
+            color="#fff"
+            onClick={() => {
+              dispatch(start());
+              dispatch(seedNumberReset());
+              dispatch(seedsReset());
+            }}
+          />
         </BtnDiv>
-        <button
-          onClick={() => {
-            dispatch(start());
-            dispatch(seedNumberReset());
-          }}
-        >
-          닫기
-        </button>
       </div>
     </PopDiv>
   );
@@ -61,27 +71,45 @@ const PopDiv = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
-  z-index: 3;
+  z-index: 60;
   > div {
     width: 390px;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    p {
+      font-size: 30px;
+    }
   }
   button {
     cursor: pointer;
   }
 `;
 
+const RecordText = styled.div`
+  width: 100%;
+  p {
+    line-height: 50px;
+    font-size: 20px !important;
+  }
+  p:first-child {
+    color: #ff5b00;
+  }
+`;
+
 const BtnDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  & button {
+  button {
     width: 45%;
     height: 50px;
     border-radius: 15px;
     border: none;
+    position: unset !important;
+    transform: unset;
+    font-family: inherit;
+    margin-top: unset;
   }
 `;
 

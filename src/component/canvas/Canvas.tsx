@@ -51,58 +51,18 @@ const CanvasWrap = styled.div`
   height: 425px;
 `;
 
-// styled component는 리액트 컴포 안에 있으면 계속 리렌더링 된다
-// 그러므로 밖에 꺼내서 작성하자
-
 const Canvas = ({ imgUrl, seedImg, basket }: Cv) => {
-  const animateRef = useRef<any>();
-  const canvasRef = useRef<any>();
-  const seed = new Image();
-  const startState = useSelector(
-    (state: RootState) => state.seedGameReducer.start
-  );
+  // const animateRef = useRef<any>();
 
-  // useEffect(() => {
-  //   const canvas = canvasRef.current;
-  //   const ctx = canvas.getContext('2d');
-  //   seed.src = `${imgLink}${imgUrl}.png`;
-  //   seed.onload = () => {
-  //     canvas.width = seed.width;
-  //     canvas.height = 425;
-  //     ctx?.drawImage(seed, 0, 0, 360, 425, 0, 0, 390, 425);
-  //   };
-  // }, []);
-
-  // 리액트에서 리렌더가 발생하지 않으면서 이전 값을 기억하게 하려면?
-  // useRef = 뜨문뜨문 값이 업데이트 돼서 안됨
-
-  const render = () => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    seed.src = `${imgLink}${imgUrl}.png`;
-    seed.onload = () => {
-      canvas.width = 390;
-      canvas.height = 425;
-      ctx?.drawImage(seed, 0, 0, 390, 425, 0, 0, 390, 425);
-    };
-    animateRef.current = requestAnimationFrame(render);
-  };
-
-  // useEffect(() => {
-  //   if (startState && imgUrl.includes('seedGame')) {
-  //     animateRef.current = requestAnimationFrame(render);
-  //   }
-  //   return () => {
-  //     cancelAnimationFrame(animateRef.current);
-  //   };
-  // });
+  // const render = () => {
+  //   animateRef.current = requestAnimationFrame(render);
+  // };
 
   return (
     <CanvasWrap>
       {basket && <Basket src={`${imgLink}${basket}.png`} />}
       {seedImg && <Seed src={`${imgLink}${seedImg}.png`} />}
       {imgUrl && <Back src={`${imgLink}${imgUrl}.png`} />}
-      {/* <canvas ref={canvasRef} className="seed-canvas"></canvas> */}
     </CanvasWrap>
   );
 };

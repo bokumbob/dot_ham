@@ -13,12 +13,8 @@ import {
 } from 'state/seedGameAction';
 import SeedGameTouchBox from './SeedGameTouchBox';
 import './seedGame.scss';
-
-// const P = () => {
-//   return (
-//     <div style={{ backgroundColor: 'aqua', width: 500, height: 300 }}></div>
-//   );
-// };
+import GameTimer from './GameTimer';
+import NextBtn from 'component/common/NextBtn';
 
 const SeedGame = () => {
   // 게임이 끝났을 때 start false 되게
@@ -61,12 +57,13 @@ const SeedGame = () => {
       <div className="seedGame-wrap">
         <Canvas imgUrl={`seedGame${seedNumberState}`} />
         {startState && (
-          <SeedGameTouchBox dispatch={dispatch} clickCount={clickCount} />
+          <>
+            <SeedGameTouchBox dispatch={dispatch} clickCount={clickCount} />
+            <GameTimer />
+          </>
         )}
+        <NextBtn text="시작하기!" onClick={() => dispatch(start())} />
       </div>
-      <p className="start-btn" onClick={() => dispatch(start())}>
-        시작하기!
-      </p>
     </div>
   );
 };
