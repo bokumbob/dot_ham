@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from 'state';
-import { currentTime, time } from 'state/timer';
+import { currentTime } from 'state/timer';
 
 const Timer = ({ active, setActive }: Time) => {
   const currentTimeState = useSelector(
@@ -15,27 +15,16 @@ const Timer = ({ active, setActive }: Time) => {
   );
   const dispatch = useDispatch();
   const timer = useRef<any>();
-  // const currentTimer = useRef<any>();
   const [catchTime, setCatchTime] = useState<number>(5);
 
-  // 현재 시간 계속 업데이트
-
   useEffect(() => {
-    // currentTimer.current = setInterval(() => {
     dispatch(currentTime(Date.now()));
-    // }, 1000);
-    // return () => clearInterval(currentTimer.current);
   }, []);
-
-  // 남은 시간 계산해서 반영
-  // 그냥 페이지에 처음 접한 시간만 딱 저장해서 해도 될 듯?
-  // 계속 최근 시간을 갱신할 필요 없이
 
   useEffect(() => {
     if (startTimeState > 1 && timeState > 1) {
       const timeFix =
         timeState - Math.floor((currentTimeState - startTimeState) / 1000);
-      // console.log(timeFix);
       setCatchTime(timeFix);
     } else {
       setCatchTime(5);
@@ -46,23 +35,16 @@ const Timer = ({ active, setActive }: Time) => {
     return () => clearInterval(timer.current);
   }, [startTimeState, timeState, currentTimeState]);
 
-  // 시간이 0이 되면 인터벌 삭제
-
   useEffect(() => {
-    if (catchTime < 1) {
-      // clearInterval(currentTimer.current);
+    if (catchTime <= 0) {
       clearInterval(timer.current);
       setActive(true);
+      setCatchTime(0);
     }
-    return () => clearInterval(timer.current);
-    // clearInterval(currentTimer.current);
   }, [catchTime]);
 
-  // 액티브 바뀌면 새 시간 넣어주세요
-  // adas
-
   useEffect(() => {
-    if (!active) {
+    if (!active && catchTime <= 0) {
       setCatchTime(900);
       timer.current = setInterval(() => {
         setCatchTime(prev => prev - 1);

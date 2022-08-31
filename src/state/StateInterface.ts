@@ -42,6 +42,7 @@ export interface HamsterListState extends Array<Hamster> {
 
 export interface seedGameInit {
   start: boolean;
+  stop: boolean;
   seeds: number;
   seedNumber: number;
 }

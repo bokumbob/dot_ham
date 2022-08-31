@@ -13,12 +13,8 @@ import {
 } from 'state/seedGameAction';
 import SeedGameTouchBox from './SeedGameTouchBox';
 import './seedGame.scss';
-
-// const P = () => {
-//   return (
-//     <div style={{ backgroundColor: 'aqua', width: 500, height: 300 }}></div>
-//   );
-// };
+import GameTimer from './GameTimer';
+import NextBtn from 'component/common/NextBtn';
 
 const SeedGame = () => {
   // 게임이 끝났을 때 start false 되게
@@ -26,6 +22,9 @@ const SeedGame = () => {
   // 총 갯수 알려주기
   // 뉴 레코드인지 알려주기
   // 최고 기록만 기록하기
+
+  // 현재 맨 마지막 갉아먹기에서 seedsState 가 2 증가하는 버그 발생
+  // 해결 완
 
   const startState = useSelector(
     (state: RootState) => state.seedGameReducer.start
@@ -46,8 +45,6 @@ const SeedGame = () => {
   useEffect(() => {
     if (seedNumberState > 0 && seedNumberState % 5 === 0) {
       dispatch(seedNumberReset());
-      console.log('reset');
-      dispatch(seeds());
     }
   }, [seedNumberState]);
 
@@ -58,15 +55,22 @@ const SeedGame = () => {
   return (
     <div>
       <TitleHeader text="해씨원정대" />
+      {startState && (
+        <p className="current-seeds">현재 {Math.floor(seedsState / 5)}개</p>
+      )}
       <div className="seedGame-wrap">
         <Canvas imgUrl={`seedGame${seedNumberState}`} />
         {startState && (
-          <SeedGameTouchBox dispatch={dispatch} clickCount={clickCount} />
+          <>
+            <SeedGameTouchBox dispatch={dispatch} clickCount={clickCount} />
+            <GameTimer />
+          </>
         )}
+        <NextBtn
+          text={startState ? '그만하기!' : '시작하기!'}
+          onClick={() => dispatch(start())}
+        />
       </div>
-      <p className="start-btn" onClick={() => dispatch(start())}>
-        시작하기!
-      </p>
     </div>
   );
 };

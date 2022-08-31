@@ -1,8 +1,8 @@
 import { SeedGameTouchBoxInterface } from 'etc/ParamsInterface';
-import React, { useEffect, useRef, useState } from 'react';
-import { seeds, start } from 'state/seedGameAction';
+import React, { useEffect, useState } from 'react';
+import { seeds } from 'state/seedGameAction';
 import styled from 'styled-components';
-import SeedGamePop from './SeedGamePop';
+import TouchBox from './TouchBox';
 
 interface Touch2 {
   top?: string;
@@ -16,8 +16,6 @@ const SeedGameTouchBox = ({
   const [top, setTop] = useState<string>();
   const [left, setLeft] = useState<string>();
   const [touch, setTouch] = useState<number>(5);
-  const [time, setTime] = useState<number>(10);
-  const timer = useRef<NodeJS.Timer>();
 
   const random = () => {
     // 15 ~ 60
@@ -44,36 +42,16 @@ const SeedGameTouchBox = ({
     }
   }, [touch]);
 
-  useEffect(() => {
-    if (time < 1) {
-      clearInterval(timer.current);
-      // dispatch(start());
-    } else {
-      timer.current = setInterval(() => {
-        setTime(prev => prev - 1);
-      }, 1000);
-    }
-    return () => clearInterval(timer.current);
-  }, [time]);
-
   return (
     <>
-      {time}
-      <Touch
+      <TouchBox
         onClick={() => {
-          time > 1 && count();
-          time > 1 && clickCount(touch);
+          count();
+          clickCount(touch);
         }}
         top={top + '%'}
         left={left + '%'}
       />
-      {time < 1 && (
-        <SeedGamePop
-          setTime={setTime}
-          setTouch={setTouch}
-          dispatch={dispatch}
-        />
-      )}
     </>
   );
 };

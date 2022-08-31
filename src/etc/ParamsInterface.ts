@@ -1,3 +1,4 @@
+import { UserItem } from './VaraiableInterface';
 import { FunctionComponent } from 'react';
 import { Hamster } from 'state/StateInterface';
 
@@ -29,15 +30,29 @@ export interface SeedGameTouchBoxInterface {
 
 export interface SeedGamePopInterface {
   setTime: React.Dispatch<React.SetStateAction<number>>;
-  setTouch: React.Dispatch<React.SetStateAction<number>>;
-  dispatch: React.Dispatch<any>;
 }
 
 export interface NextBtnInt {
   text: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  color?: string;
 }
 
 export interface DF {
   hamPop: boolean;
+}
+
+export interface RankingItem {
+  data: UserItem;
+  rank: number;
+}
+
+export interface RankingChange {
+  change: boolean;
+}
+
+export interface TouchBoxInter {
+  onClick: () => void;
+  top: string;
+  left: string;
 }
