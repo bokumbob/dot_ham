@@ -1,18 +1,26 @@
-import { whoFirst } from 'component/common/commonFunction';
 import { User } from './StateInterface';
 
 const USER = 'userAction/USER';
+const TOKEN = 'userAction/TOKEN';
+const ACCESSTOKEN = 'userAction/REFRESHTOKEN';
 const FIRST = 'userAction/FIRST';
 const HAMSTERLIST = 'userAction/HAMSTERLIST';
 const START = 'userAction/START';
 
 export const user = (user: any) => ({ type: USER, user });
+export const token = (token: string) => ({ type: TOKEN, token });
+export const accessToken = (actoken: string) => ({
+  type: ACCESSTOKEN,
+  actoken,
+});
 export const first = (first: any) => ({ type: FIRST, first });
 export const hamsterList = (hamster: any) => ({ type: HAMSTERLIST, hamster });
 export const start = (start: any) => ({ type: START, start });
 
 const userInitialState: User = {
   user: {},
+  token: '',
+  accessToken: '',
   first: false,
   hamsterList: [
     {
@@ -39,6 +47,16 @@ export const userReducer = (state = userInitialState, action: any) => {
       return {
         ...state,
         user: action.user,
+      };
+    case TOKEN:
+      return {
+        ...state,
+        token: action.token,
+      };
+    case ACCESSTOKEN:
+      return {
+        ...state,
+        accessToken: action.actoken,
       };
     case FIRST:
       return {

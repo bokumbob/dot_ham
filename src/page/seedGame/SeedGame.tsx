@@ -17,15 +17,6 @@ import GameTimer from './GameTimer';
 import NextBtn from 'component/common/NextBtn';
 
 const SeedGame = () => {
-  // 게임이 끝났을 때 start false 되게
-  // 끝났을 때 랭킹 저장 기능
-  // 총 갯수 알려주기
-  // 뉴 레코드인지 알려주기
-  // 최고 기록만 기록하기
-
-  // 현재 맨 마지막 갉아먹기에서 seedsState 가 2 증가하는 버그 발생
-  // 해결 완
-
   const startState = useSelector(
     (state: RootState) => state.seedGameReducer.start
   );
