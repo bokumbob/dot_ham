@@ -2,7 +2,6 @@ import firebase from 'firebase/compat/app';
 import EnvVar from './EnvVar';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { getDatabase } from 'firebase/database';
 import { UserItem } from './VaraiableInterface';
 
 const firebaseConfig = {
@@ -16,39 +15,38 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-// 파이어 베이스 초기화 해주는 것
 
 export const firebaseInstance = firebase;
 export const authService = firebase.auth();
 export const dbService = firebase.firestore();
 
-// export interface Data {
-//   hamsterList: any;
-//   start: any;
-//   time: any;
-//   seeds: any;
-// }
-
-export const myData = async (name?: string, data?: any): Promise<UserItem> => {
+export const myData = async (): Promise<UserItem> => {
   const dataBase = dbService.collection('userList');
-  let innerData: UserItem | PromiseLike<UserItem>;
-  if (name && data >= 0) {
+  let innerData: UserItem | undefined;
+  try {
+    (await dataBase.get()).docs.forEach(doc => {
+      if (doc.id === authService.currentUser?.email) {
+        const a = doc.data() as UserItem;
+        innerData = a;
+      }
+    });
+  } catch (e) {
+    alert('데이터 불러오기를 실패했습니다');
+  }
+  return innerData as UserItem;
+};
+
+export const addData = async (name: string, data: string): Promise<void> => {
+  const dataBase = dbService.collection('userList');
+  try {
     const obj: any = {};
     obj[name] = data;
     dataBase.doc(authService.currentUser?.email?.toString()).update({
       ...obj,
     });
     alert('저장됐습니다');
-    return innerData!;
-  } else {
-    (await dataBase.get()).docs.forEach(doc => {
-      if (doc.id === authService.currentUser?.email) {
-        const a = doc.data() as UserItem;
-        innerData = a;
-        return innerData;
-      }
-    });
-    return innerData!;
+  } catch (e) {
+    alert('저장에 실패했습니다');
   }
 };
 

@@ -1,5 +1,5 @@
 import NextBtn from 'component/common/NextBtn';
-import { allData, myData } from 'etc/fbase';
+import { addData, allData, myData } from 'etc/fbase';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -41,7 +41,7 @@ const SeedGamePop = () => {
           <NextBtn
             text="최고 기록 저장하기"
             onClick={() => {
-              myData('seeds', highSeed);
+              addData('seeds', highSeed);
               setChange(true);
             }}
           />

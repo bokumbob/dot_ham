@@ -1,5 +1,6 @@
 import { authService, firebaseInstance } from 'etc/fbase';
 import { pass } from 'state/loginAction';
+import { socialReturn } from 'state/StateInterface';
 
 const nicknameCheck = (nickname: string) => {
   const nicknameTest = /^[a-zA-Z0-9가-힣]{2,8}$/;
@@ -24,7 +25,6 @@ export async function signUp(
 ) {
   e.preventDefault();
   let data;
-  console.log('e');
   if (passCheck(email, password)) {
     if (state) {
       try {
@@ -35,7 +35,6 @@ export async function signUp(
         data.user?.updateProfile({
           displayName,
         });
-        console.log(data);
         passDispatch(pass());
       } catch (e) {
         console.log(e);
@@ -43,7 +42,6 @@ export async function signUp(
     } else {
       try {
         data = await authService.signInWithEmailAndPassword(email, password);
-        console.log(data);
         passDispatch(pass());
       } catch (e) {
         console.log(e);
@@ -52,19 +50,14 @@ export async function signUp(
   } else alert('입력 내용을 확인해주세요');
 }
 
-export async function social(e: React.MouseEvent<HTMLButtonElement>) {
-  e.preventDefault();
-  const nameButton = e.target as HTMLParagraphElement;
-  const el = nameButton.parentElement as HTMLButtonElement;
-  let provider;
-  let data;
-  if (el.name === 'google') {
-    provider = new firebaseInstance.auth.GoogleAuthProvider();
-    data = await authService.signInWithPopup(provider);
-    console.log(data);
-  } else if (el.name === 'twitter') {
-    provider = new firebaseInstance.auth.TwitterAuthProvider();
-    data = await authService.signInWithPopup(provider);
-    console.log(data);
-  }
+export async function social(
+  e?: React.MouseEvent<HTMLButtonElement>
+): Promise<socialReturn | any> {
+  e?.preventDefault();
+  // const nameButton = e.target as HTMLParagraphElement;
+  // const el = nameButton.parentElement as HTMLButtonElement;
+  const provider = new firebaseInstance.auth.GoogleAuthProvider();
+  const data = await authService.signInWithPopup(provider);
+  // console.log(data);
+  return data.credential;
 }

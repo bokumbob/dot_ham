@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './default.css';
-import { myData } from 'etc/fbase';
+import { authService, myData } from 'etc/fbase';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from 'state';

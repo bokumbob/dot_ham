@@ -1,0 +1,38 @@
+$smallMargin: 15px;
+$middleMargin: 30px;
+$bigMargin: 50px;
+
+form{
+    padding: #{$bigMargin};
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: #{$bigMargin};
+    }
+    label {
+        margin-bottom: #{$smallMargin};
+    }
+    input {
+        height: 30px;
+        margin-bottom: #{$middleMargin};
+    }
+    button {
+        margin-bottom: #{$smallMargin};
+        align-self: center;
+    }
+    button {
+        width: 200px!important;
+    }
+    span {
+        margin-bottom: #{$smallMargin};
+        text-decoration: underline;
+        text-underline-position: under;
+        transition: ease-in-out 0.1s;
+        cursor: pointer;
+    }
+    span:hover {
+        color: #ff5b00;
+    }
+}

@@ -9,6 +9,8 @@ export interface LoginState {
 
 export interface User {
   user: object;
+  token: string;
+  accessToken: string;
   hamsterList: object;
   start: number;
   first: any;
@@ -45,4 +47,12 @@ export interface seedGameInit {
   stop: boolean;
   seeds: number;
   seedNumber: number;
+}
+
+export interface socialReturn {
+  accessToken: string;
+  idToken: string;
+  pendingToken: string | null;
+  providerId: string;
+  signInMethod: string;
 }
