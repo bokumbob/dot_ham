@@ -7,7 +7,7 @@ function Header() {
   const nav = useNavigate();
   return (
     <header className="top-header">
-      <Link to="/">
+      <Link to="/main">
         <h1 className="title">닷-햄</h1>
       </Link>
       <div className="setting" onClick={() => nav('/setting')}>

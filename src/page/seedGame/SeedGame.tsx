@@ -1,20 +1,15 @@
 import Canvas from 'component/canvas/Canvas';
-import Header from 'component/header/Header';
 import TitleHeader from 'component/title-header/TitleHeader';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { RootState } from 'state';
-import {
-  seedNumber,
-  seedNumberReset,
-  seeds,
-  start,
-} from 'state/seedGameAction';
+import { seedNumber, seedNumberReset, start } from 'state/seedGameAction';
 import SeedGameTouchBox from './SeedGameTouchBox';
 import './seedGame.scss';
 import GameTimer from './GameTimer';
 import NextBtn from 'component/common/NextBtn';
+import styled from 'styled-components';
 
 const SeedGame = () => {
   const startState = useSelector(
@@ -43,6 +38,10 @@ const SeedGame = () => {
     if (seedsState < 1) dispatch(seedNumberReset());
   }, [seedsState]);
 
+  useEffect(() => {
+    if (startState) dispatch(start());
+  }, []);
+
   return (
     <div>
       <TitleHeader text="해씨원정대" />
@@ -65,5 +64,13 @@ const SeedGame = () => {
     </div>
   );
 };
+
+const StartWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+`;
 
 export default SeedGame;

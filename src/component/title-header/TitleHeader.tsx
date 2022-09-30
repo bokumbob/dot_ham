@@ -9,17 +9,17 @@ const TitleHeader = ({ text, none }: TitleHeaderInterface) => {
   const [current, setCurrent] = useState<number>(0);
   const nav = useNavigate();
   const next = (current: number) => {
-    if (current >= 3) return;
-    current += 1;
+    if (current >= 1) {
+      current = 0;
+    } else current += 1;
     setCurrent(current);
-    console.log(current);
     nav(`/${pageNamArr[current]}`);
   };
   const prev = (current: number) => {
-    if (current >= 3) return;
-    current -= 1;
+    if (current <= 0) {
+      current = 1;
+    } else current -= 1;
     setCurrent(current);
-    console.log(current);
     nav(`/${pageNamArr[current]}`);
   };
   useEffect(() => {
@@ -34,16 +34,17 @@ const TitleHeader = ({ text, none }: TitleHeaderInterface) => {
           setCurrent(1);
         }
         break;
-      case '나의 햄스터':
-        {
-          setCurrent(2);
-        }
-        break;
+      // case '나의 햄스터':
+      //   {
+      //     setCurrent(2);
+      //   }
+      //   break;
       default: {
         setCurrent(0);
       }
     }
   });
+
   return (
     <div className="header-wrap">
       {!none && (

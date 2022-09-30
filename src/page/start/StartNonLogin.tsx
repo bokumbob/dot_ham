@@ -1,9 +1,9 @@
-import { authService } from 'etc/fbase';
+import { allData, authService } from 'etc/fbase';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { email, password, newAccount, nickname } from 'state/loginAction';
 import { accessToken, token, user } from 'state/userAction';
-import { signUp, social } from './startFunction';
+import { nicknameCheck, signUp, social } from './startFunction';
 import { Button } from 'component/common/Button';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -11,29 +11,49 @@ import { RootState } from 'state';
 import './start.scss';
 import NextBtn from 'component/common/NextBtn';
 import { socialReturn } from 'state/StateInterface';
+import { useNavigate } from 'react-router-dom';
 
 const StartNonLogin = () => {
   const [emailFind, setEmailFind] = useState<string | null>('');
-  useEffect(() => {
-    authService.onAuthStateChanged(async userObj => {
-      if (userObj) dispatch(user(userObj));
-    });
-  }, []);
+  const [nicknamePass, setNicknamePass] = useState<boolean>(false);
+
   const state = useSelector((state: RootState) => state.loginReducer);
   const dispatch = useDispatch();
+  const nav = useNavigate();
+
+  useEffect(() => {
+    authService.onAuthStateChanged(async userObj => {
+      if (userObj) {
+        dispatch(user(userObj));
+        nav('/main');
+      }
+    });
+  }, []);
+
   return (
     <>
       <form
-        onSubmit={e =>
-          signUp(
-            e,
-            state.newAccount,
-            state.email,
-            state.password,
-            state.nickname,
-            dispatch
-          )
-        }
+        onSubmit={e => {
+          e.preventDefault();
+          state.newAccount
+            ? nicknamePass
+              ? signUp(
+                  state.newAccount,
+                  state.email,
+                  state.password,
+                  dispatch,
+                  nav,
+                  state.nickname
+                )
+              : alert('닉네임 중복체크를 해주세요')
+            : signUp(
+                state.newAccount,
+                state.email,
+                state.password,
+                dispatch,
+                nav
+              );
+        }}
       >
         <h2>닷-햄에 오신 걸 환영합니다!</h2>
         <label htmlFor="id">이메일을 입력해주세요</label>
@@ -50,12 +70,34 @@ const StartNonLogin = () => {
         />
         {state.newAccount ? (
           <>
-            <label htmlFor="nickname">닉네임을 입력해주세요</label>
-            <input
-              id="nickname"
-              type="text"
-              onChange={e => dispatch(nickname(e.target.value))}
-            />
+            <div className="nickname-wrap">
+              <label htmlFor="nickname">닉네임을 입력해주세요</label>
+              <div className="nickname-bot">
+                <input
+                  id="nickname"
+                  type="text"
+                  value={state.nickname}
+                  onChange={e => {
+                    dispatch(nickname(e.target.value));
+                    if (state.nickname.length > 8)
+                      dispatch(nickname(state.nickname.slice(0, 7)));
+                  }}
+                  placeholder="최대 8글자까지입니다"
+                  disabled={nicknamePass ? true : false}
+                />
+                <NextBtn
+                  onClick={async e => {
+                    e.preventDefault();
+                    nicknamePass
+                      ? setNicknamePass(false)
+                      : setNicknamePass(await nicknameCheck(state.nickname));
+                  }}
+                  text={
+                    nicknamePass ? '닉네임 다시 입력하기' : '닉네임 중복 체크'
+                  }
+                />
+              </div>
+            </div>
             <NextBtn text="회원가입 하기" />
             <span onClick={() => dispatch(newAccount(false))}>
               이미 회원이신가요?
@@ -88,7 +130,7 @@ const StartNonLogin = () => {
           </>
         )}
         <Button
-          text={'Sign in with Google'}
+          text={state.newAccount ? 'Sign in with Google' : 'Log in with Google'}
           name={'google'}
           onClick={e => {
             social(e).then((res: socialReturn) => {

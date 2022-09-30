@@ -35,4 +35,25 @@ form{
     span:hover {
         color: #ff5b00;
     }
+    .nickname-wrap{
+        width: 100%;
+        display: grid;
+        grid-template-rows:  1fr;
+        // grid-template-columns: 1fr;
+        .nickname-bot{
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            align-items: center;
+            input {
+                margin: unset;
+            }
+            button {
+                width: unset!important;
+                height: 36px;
+                margin: unset;
+                font-size: 12px;
+            }
+        }
+    }
 }

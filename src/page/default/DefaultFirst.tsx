@@ -66,7 +66,7 @@ export const Wrap = styled.div`
   overflow: hidden;
   p {
     text-align: center;
-    padding: 0 75px;
+    padding: 0 80px;
   }
 `;
 

@@ -19,20 +19,15 @@ const Collection = () => {
   const [hamster, setHamster] = useState<any>();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (
-      hamsterListState === undefined ||
-      hamsterListState.length === undefined
-    ) {
-      const firstHamster = async () => {
-        const userData = dbService.collection('userList');
-        (await userData.get()).docs.forEach(doc => {
-          if (doc.id === authService?.currentUser?.displayName) {
-            dispatch(hamsterList(doc.data().hamsterList));
-          }
-        });
-      };
-      firstHamster();
-    }
+    const firstHamster = async () => {
+      const userData = dbService.collection('userList');
+      (await userData.get()).docs.forEach(doc => {
+        if (doc.id === authService?.currentUser?.email) {
+          dispatch(hamsterList(doc.data().hamsterList));
+        }
+      });
+    };
+    firstHamster();
   }, []);
   useEffect(() => {
     if (hamsterListState)

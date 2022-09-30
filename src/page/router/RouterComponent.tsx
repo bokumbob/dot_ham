@@ -16,42 +16,20 @@ import DefaultMain from '../default/DefaultMain';
 import StartNonLogin from '../start/StartNonLogin';
 
 const RouterComponent = () => {
-  const passState = useSelector((state: RootState) => state.loginReducer.pass);
   const userState = useSelector((state: RootState) => state.userReducer.user);
-  // const tokenState = useSelector((state: RootState) => state.userReducer.token);
-  // const reTokenState = useSelector(
-  //   (state: RootState) => state.userReducer.refreshToken
-  // );
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    whoFirst().then(res => dispatch(first(res)));
-    // console.log(tokenState);
-    // console.log(reTokenState);
-    // console.log(location.hash);
-  }, []);
 
   return (
     <BrowserRouter>
       {Object.keys(userState).length > 0 && <Header />}
       <Routes>
-        <Route
-          path="/"
-          element={
-            Object.keys(userState).length !== 0 || passState ? (
-              <DefaultMain />
-            ) : (
-              <StartNonLogin />
-            )
-          }
-        />
+        <Route path="/" element={<StartNonLogin />} />
+        <Route path="/main" element={<DefaultMain />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/seedGame" element={<SeedGame />} />
         <Route path="/setting" element={<Setting />} />
         <Route path="/setting/change" element={<ChangeNickname />} />
-        <Route path="/test" element={<Test2 />} />
+        {/* <Route path="/test" element={<Test2 />} /> */}
       </Routes>
-      {/* {Object.keys(userState).length !== undefined && <Footer />} */}
       {Object.keys(userState).length > 0 && <Footer />}
     </BrowserRouter>
   );

@@ -6,11 +6,6 @@
 .seeds{
     width: 250px;
     height: 258px;
-    background-color: aquamarine;
-}
-
-.seeds.active{
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .background{
@@ -38,6 +33,9 @@ button:disabled{
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-    cursor: pointer;
     z-index: 7;
+}
+
+.catch.active {
+    cursor: pointer;
 }

@@ -1,11 +1,24 @@
-import { authService, firebaseInstance } from 'etc/fbase';
+import { allData, authService, firebaseInstance } from 'etc/fbase';
 import { pass } from 'state/loginAction';
 import { socialReturn } from 'state/StateInterface';
 
-const nicknameCheck = (nickname: string) => {
-  const nicknameTest = /^[a-zA-Z0-9가-힣]{2,8}$/;
-  if (nicknameTest.test(nickname)) return true;
-  else return false;
+export const nicknameCheck = async (nickname: string) => {
+  const nicknameTest = /^[a-zA-Z0-9가-힣]{1,8}$/;
+  if (nicknameTest.test(nickname)) {
+    const filter = await allData().then(res =>
+      res.filter(item => item.nickname === nickname)
+    );
+    if (filter.length > 0) {
+      alert('닉네임이 중복됐습니다');
+      return false;
+    } else {
+      alert('사용가능한 닉네임입니다');
+      return true;
+    }
+  } else {
+    alert('닉네임 양식이 잘못됐습니다');
+    return false;
+  }
 };
 
 const passCheck = (email: string, password: string) => {
@@ -16,14 +29,13 @@ const passCheck = (email: string, password: string) => {
 };
 
 export async function signUp(
-  e: React.FormEvent<HTMLFormElement>,
   state: boolean,
   email: string,
   password: string,
-  displayName: string,
-  passDispatch: React.Dispatch<any>
+  passDispatch: React.Dispatch<any>,
+  nav: any,
+  displayName?: string
 ) {
-  e.preventDefault();
   let data;
   if (passCheck(email, password)) {
     if (state) {
@@ -36,28 +48,29 @@ export async function signUp(
           displayName,
         });
         passDispatch(pass());
+        nav('/main');
       } catch (e) {
         console.log(e);
+        alert('이미 가입된 이메일입니다');
       }
     } else {
       try {
         data = await authService.signInWithEmailAndPassword(email, password);
         passDispatch(pass());
+        nav('/main');
       } catch (e) {
         console.log(e);
+        alert('입력 내용을 확인해주세요');
       }
     }
-  } else alert('입력 내용을 확인해주세요');
+  } else alert('이메일 혹은 비밀번호가 잘못됐습니다');
 }
 
 export async function social(
   e?: React.MouseEvent<HTMLButtonElement>
 ): Promise<socialReturn | any> {
   e?.preventDefault();
-  // const nameButton = e.target as HTMLParagraphElement;
-  // const el = nameButton.parentElement as HTMLButtonElement;
   const provider = new firebaseInstance.auth.GoogleAuthProvider();
   const data = await authService.signInWithPopup(provider);
-  // console.log(data);
   return data.credential;
 }
