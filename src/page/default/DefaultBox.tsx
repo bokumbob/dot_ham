@@ -14,6 +14,13 @@ const DefaultBox = ({ setHamPop, hamPop, firstState }: DefaultB) => {
   const [catchHam, setCatchHam] = useState<Hamster>();
   return (
     <main className="container">
+      {/* <p
+        onClick={() =>
+          catchHamster().then((res: Hamster | any) => setCatchHam(res))
+        }
+      >
+        sadsadsadsa
+      </p> */}
       <section className="hamster-main">
         <TitleHeader text={'만남의 장소'} />
         <div className="center">

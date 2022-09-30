@@ -5,14 +5,19 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from 'state';
 import { time } from 'state/timer';
-import { hamsterList, start } from 'state/userAction';
+import { first, hamsterList, start } from 'state/userAction';
 import DefaultFirst from './DefaultFirst';
 import DefaultBox from './DefaultBox';
 import { UserItem } from 'etc/VaraiableInterface';
+import { whoFirst } from 'component/common/commonFunction';
+import { useNavigate } from 'react-router-dom';
 
 const DefaultMain = () => {
   const firstState = useSelector((state: RootState) => state.userReducer.first);
+  const userState = useSelector((state: RootState) => state.userReducer.user);
+  const nav = useNavigate();
   const [hamPop, setHamPop] = useState<boolean>(false);
+  const [nicknameChange, setNicknameChange] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const hamsterData = async () => {
@@ -26,7 +31,17 @@ const DefaultMain = () => {
   };
 
   useEffect(() => {
-    !firstState && hamsterData();
+    const dataLoading = async () => {
+      await whoFirst().then(res => dispatch(first(res)));
+    };
+    dataLoading();
+    const firstData = async () => {
+      !firstState && (await hamsterData());
+    };
+    firstData();
+    Object.keys(userState).length > 0 || nav('/');
+    (authService.currentUser?.displayName?.length as number) >= 9 &&
+      nav('/setting/change');
   }, []);
 
   return (

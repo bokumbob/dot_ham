@@ -1,8 +1,9 @@
 .collection-wrap{
     width: 358px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    // flex-wrap: wrap;
+    // justify-content: space-between;
     .hamster-wrap{
         width: 108px;
         display: flex;

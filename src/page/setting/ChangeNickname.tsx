@@ -1,12 +1,13 @@
-import { Button } from 'component/common/Button';
 import NextBtn from 'component/common/NextBtn';
 import TitleHeader from 'component/title-header/TitleHeader';
 import { addData, authService } from 'etc/fbase';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ChangeNickname = () => {
   const [nickname, setNickname] = useState<string>('');
+  const nav = useNavigate();
   return (
     <>
       <TitleHeader text={'닉네임 변경하기'} none={true} />
@@ -26,14 +27,14 @@ const ChangeNickname = () => {
         />
         <NextBtn
           text="변경하기"
-          onClick={e => {
+          onClick={(e: any) => {
             e.preventDefault();
             if (nickname && nickname.length <= 8) {
               authService.currentUser?.updateProfile({
                 displayName: nickname,
               });
               addData('nickname', nickname);
-              // alert('닉네임이 변경됐습니다');
+              nav('/main');
             } else alert('변경할 닉네임을 입력해주세요');
           }}
         />
