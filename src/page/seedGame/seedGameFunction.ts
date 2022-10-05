@@ -1,8 +1,12 @@
 import { myData } from 'etc/fbase';
 
-export const ranking = async (data: number) => {
-  const prevData = await myData().then(res => res!.seeds);
-  if (data > prevData) return data;
-  else if (data < prevData) return prevData;
-  else return 0;
+export const ranking = async (data: number): Promise<number> => {
+  const prevData = await myData().then(res => res.seeds);
+  let returnData: number;
+  if (data > prevData) {
+    returnData = data;
+  } else {
+    returnData = prevData;
+  }
+  return returnData;
 };

@@ -11,7 +11,6 @@ const loadingHamsterList = async () => {
       userData = doc.data();
     }
   });
-  console.log(userData);
   if (!userData) {
     const hamsterLoading = await dbService.collection('allHamsterList').get();
     hamsterLoading.docs.forEach(
@@ -25,13 +24,11 @@ const loadingHamsterList = async () => {
 export const catchHamster = async () => {
   const userData = await dbService.collection('userList');
   await loadingHamsterList();
-  console.log(hamsterList);
   const prevList = Object.values(hamsterList);
 
   const newHamsterList = Object.values(hamsterList).filter(
     ham => ham.catch === false
   );
-  // console.log(newHamsterList);
   if (newHamsterList.length <= 0) return alert('올 클리어!');
   const randomNumber = Math.floor(Math.random() * (newHamsterList.length - 1));
   newHamsterList[randomNumber].catch = true;

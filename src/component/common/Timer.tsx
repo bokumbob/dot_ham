@@ -18,6 +18,7 @@ const Timer = ({ active, setActive }: Time) => {
   const [catchTime, setCatchTime] = useState<number>(5);
 
   useEffect(() => {
+    catchTime > 0 && setActive(false);
     dispatch(currentTime(Date.now()));
   }, []);
 
@@ -40,7 +41,7 @@ const Timer = ({ active, setActive }: Time) => {
       clearInterval(timer.current);
       setActive(true);
       setCatchTime(0);
-    }
+    } else if (catchTime > 0 && active) setActive(false);
   }, [catchTime]);
 
   useEffect(() => {

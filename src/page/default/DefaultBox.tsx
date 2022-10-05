@@ -1,26 +1,21 @@
 import Canvas from 'component/canvas/Canvas';
 import CatchModal from 'component/catchModal/CatchModal';
 import FirstTimer from 'component/common/FirstTimer';
+import FooterAnother from 'component/common/FooterAnother';
 import Timer from 'component/common/Timer';
 import TitleHeader from 'component/title-header/TitleHeader';
 import { imgLink } from 'etc/imgLink';
 import { DefaultB } from 'etc/ParamsInterface';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Hamster } from 'state/StateInterface';
 import { catchHamster, fitstCatchHam } from './defaultFunction';
 
 const DefaultBox = ({ setHamPop, hamPop, firstState }: DefaultB) => {
   const [active, setActive] = useState<boolean>(false);
   const [catchHam, setCatchHam] = useState<Hamster>();
+
   return (
     <main className="container">
-      {/* <p
-        onClick={() =>
-          catchHamster().then((res: Hamster | any) => setCatchHam(res))
-        }
-      >
-        sadsadsadsa
-      </p> */}
       <section className="hamster-main">
         <TitleHeader text={'만남의 장소'} />
         <div className="center">
@@ -33,8 +28,11 @@ const DefaultBox = ({ setHamPop, hamPop, firstState }: DefaultB) => {
             <Canvas imgUrl="back" seedImg="catchSeed" basket="basket" />
           </article>
         </div>
-        <div
-          className={`catch ${active && 'active'}`}
+        <FooterAnother
+          text="햄스터 잡기"
+          classTitle={`catch ${active && 'active'}`}
+          img={`${imgLink}hamsterIcon.png`}
+          alt="햄스터 잡기 아이콘"
           onClick={() => {
             if (active) {
               setHamPop(true);
@@ -45,10 +43,7 @@ const DefaultBox = ({ setHamPop, hamPop, firstState }: DefaultB) => {
                 catchHamster().then((res: Hamster | any) => setCatchHam(res));
             }
           }}
-        >
-          <img src={`${imgLink}hamsterIcon.png`} alt="햄스터 잡기 아이콘" />
-          <p>햄스터 잡기</p>
-        </div>
+        />
       </section>
       {hamPop && catchHam && (
         <CatchModal hamster={catchHam!} setHamPop={setHamPop} />

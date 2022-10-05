@@ -1,8 +1,7 @@
-import { transform } from '@babel/core';
 import NextBtn from 'component/common/NextBtn';
 import { imgLink } from 'etc/imgLink';
 import { CatchModalInterface } from 'etc/ParamsInterface';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import './catchModal.scss';
 
@@ -29,8 +28,6 @@ const Hamster = styled.div`
 `;
 
 const CatchModal = ({ hamster, setHamPop }: CatchModalInterface) => {
-  console.log(hamster);
-  // console.log(hamster);
   return (
     <div className="catch-wrap">
       <Hamster>

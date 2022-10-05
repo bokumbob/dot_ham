@@ -13,7 +13,6 @@ const DefaultFirst = ({ hamPop }: DF) => {
   }, [hamPop]);
 
   return (
-    // background={page >= 9 ? 'transparant' : ''}
     <>
       {page === 12 || page === 15 ? (
         <ClickBack>
@@ -66,7 +65,7 @@ export const Wrap = styled.div`
   overflow: hidden;
   p {
     text-align: center;
-    padding: 0 80px;
+    padding: 0 65px;
   }
 `;
 
