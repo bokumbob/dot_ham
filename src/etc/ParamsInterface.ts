@@ -56,3 +56,11 @@ export interface TouchBoxInter {
   top: string;
   left: string;
 }
+
+export interface FooterAnotherInter {
+  text: string;
+  classTitle: string;
+  img?: string;
+  alt?: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}

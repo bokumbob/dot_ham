@@ -17,7 +17,6 @@ const DefaultMain = () => {
   const userState = useSelector((state: RootState) => state.userReducer.user);
   const nav = useNavigate();
   const [hamPop, setHamPop] = useState<boolean>(false);
-  const [nicknameChange, setNicknameChange] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const hamsterData = async () => {

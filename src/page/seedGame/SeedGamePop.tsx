@@ -14,12 +14,15 @@ const SeedGamePop = () => {
     Math.floor(state.seedGameReducer.seeds / 5)
   );
   const dispatch = useDispatch();
-  const [highSeed, sethighSeed] = useState<any>();
+  const [highSeed, sethighSeed] = useState<any>(0);
   const [change, setChange] = useState<boolean>(false);
 
   useEffect(() => {
     const compare = async () => {
-      await ranking(seedsState).then(res => sethighSeed(res));
+      await ranking(seedsState).then(res => {
+        console.log(res);
+        sethighSeed(res);
+      });
     };
     compare();
   }, [seedsState]);
@@ -49,9 +52,11 @@ const SeedGamePop = () => {
             text="닫기"
             color="#fff"
             onClick={() => {
-              dispatch(start());
-              dispatch(seedNumberReset());
-              dispatch(seedsReset());
+              if (confirm('저장하지 않고 닫으시겠어요?')) {
+                dispatch(start());
+                dispatch(seedNumberReset());
+                dispatch(seedsReset());
+              }
             }}
           />
         </BtnDiv>

@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Button } from '../../component/common/NextBtn';
 
 const TouchBox = ({ onClick, top, left }: TouchBoxInter) => {
-  console.log(left);
   return (
     <Touch left={left} top={top} onClick={onClick}>
       클릭!
