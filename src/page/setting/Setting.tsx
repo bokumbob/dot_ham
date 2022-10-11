@@ -72,6 +72,11 @@ const Setting = () => {
           </a>
         </p>
         <p>제작자 : 볶밥</p>
+        <p>
+          <a href="https://github.com/bokumbob/dot_ham" target="_blank">
+            볶밥의 닷햄 깃허브로 가기
+          </a>
+        </p>
         <p onClick={() => nav('/main')}>뒤로 가기</p>
       </div>
     </>
