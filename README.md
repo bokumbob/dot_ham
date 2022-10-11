@@ -6,7 +6,7 @@
 
 ### 실행 방법
 git clone을 통해 해당 레포지토리의 master 브랜치 파일을 클론합니다.
-npm install로 필요한 파일들을 설치 합니다.
+npm install -production로 필요한 파일들을 설치 합니다.
 npm start 명령어를 통해 실행합니다.
 
 #### 의존 패키지
